@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import Feito from './photos/feito.png'
+import NF from './photos/nao feito.png'
 
 function App() {
   
@@ -31,15 +33,27 @@ function App() {
   return (
     <>
       <header>
-        <h1>Lista TO DO</h1>
+        <div className='titulo'><h1>LIST TO </h1><div className='do'>DO</div></div>
       </header>
-      <div>
-        <input type="text" name='tarefa' placeholder='Digite sua tarefa'value={tarefa.texto} onChange={ (e) => setTarefa({id: Math.random(), texto: e.target.value, status: false}) }/>
-        <button onClick={addTarefa}>Adicionar</button>
+      <div className='container'>
+        <input className='input' type="text" name='tarefa' placeholder='DIGITE SUA TAREFA'value={tarefa.texto} onChange={ (e) => setTarefa({id: Math.random(), texto: e.target.value, status: false}) }/>
+        <input type="date"/>
       </div>
-      <div>
+      <button className='add' onClick={addTarefa}>ADD</button>
+      <div className='container-list'>
         <ul>
-          {listaTarefas.map(( item, index )=> (<li key={index}>{item.texto} <button onClick={ () => statusTarefa(item.id, item.status) }>{item.status ? 'Concluída' : 'Não Concluída'}</button> <button onClick={ () => excluirTarefa(item.id) }>X</button></li>))} 
+          {listaTarefas.map(( item, index )=>
+          (
+            <li className="item" key={index}>
+              <div className='text'>
+                {item.texto} 
+              </div>
+              <div className='divbtn'>
+                <button className='btns' type='submit'onClick={ () => statusTarefa(item.id, item.status) }>{item.status ? <img src={NF}/> : <img src={Feito}/>}</button>
+                <button className='lixo' onClick={ () => excluirTarefa(item.id) }><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </li>
+          ))} 
         </ul>
       </div>
     </>
